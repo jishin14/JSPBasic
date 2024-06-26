@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	String name = request.getParameter("name");
 	String strCm = request.getParameter("cm");
 	String strKg = request.getParameter("kg");
@@ -8,7 +10,6 @@
 	//형변환
 	double cm = Double.parseDouble(strCm);
 	double kg = Double.parseDouble(strKg);
-	
 	double bmi = kg / (cm / 100 * cm / 100);
 %>
 <!DOCTYPE html>
