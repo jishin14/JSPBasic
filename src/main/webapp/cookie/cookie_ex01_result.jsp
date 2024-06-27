@@ -20,7 +20,6 @@
 			idCheck.setMaxAge(360000); //100시간
 			response.addCookie(idCheck);
 		}
-		
 		response.sendRedirect("cookie_ex01_welcome.jsp");
 	} else {
 		response.sendRedirect("cookie_ex01.jsp"); //다시 로그인창으로
