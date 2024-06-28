@@ -1,5 +1,5 @@
-<%@page import="com.model.DepartmentDTO"%>
-<%@page import="com.model.DepartmentDAO"%>
+<%@ page import="com.model.DepartmentDTO"%>
+<%@ page import="com.model.DepartmentDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -13,10 +13,12 @@
 	3. 부서정보를 조회했다면, 조회한 결과를 quiz_ok로 데이터를 넘겨주세요.
 	4. quiz_ok에서는 EL, JSTL을 사용해서, 사용자의 부서정보를 출력해주면 됩니다.
 	*/
-	int deptId = Integer.parseInt(request.getParameter("departmentId"));
-	DepartmentDAO dao = DepartmentDAO.getInstance();
-	DepartmentDTO dto = dao.getDept(deptId);
-	request.setAttribute("dto", dto);
+	String dno = request.getParameter("departmentId");
 	
+	DepartmentDAO dao = DepartmentDAO.getInstance(); //DAO 생성
+	DepartmentDTO dto = dao.getDept(dno); //메서드 호출
+	
+	//dto를 quiz01_ok로 넘긴다.
+	request.setAttribute("dto", dto);
 	request.getRequestDispatcher("quiz01_ok.jsp").forward(request, response);
 %>

@@ -25,7 +25,7 @@ public class DepartmentDAO {
 			InitialContext init = new InitialContext();
 			ds = (DataSource)init.lookup("java:comp/env/jdbc/oracle");
 		} catch(Exception e) {
-			System.out.println("커넥션 풀 에러");
+			System.out.println("커넥션풀 에러");
 		} //시작설정객체
 	}
 	
@@ -81,13 +81,14 @@ public class DepartmentDAO {
 				if(rs != null) rs.close();
 				if(pstmt  != null) pstmt.close();
 				if(conn != null) conn.close();
-			} catch (Exception e2) {
+			} catch(Exception e2) {
 			}
 		}
 		return list;
 	}
 	
-	public DepartmentDTO getDept(int deptId) {
+	//부서번호를 조회하는 메서드
+	public DepartmentDTO getDept(String dno) {
 		DepartmentDTO dto = null;
 		
 		String sql = "SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = ?";
@@ -97,11 +98,11 @@ public class DepartmentDAO {
 		ResultSet rs = null;
 		
 		try {
-			conn = ds.getConnection();
+			conn = ds.getConnection(); //conn객체
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, deptId);
+			pstmt.setString(1, dno);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				int departmentId = rs.getInt("department_id"); //컬럼명
 				String departmentName = rs.getString("department_name");
 				int managerId = rs.getInt("manager_id");
@@ -114,7 +115,7 @@ public class DepartmentDAO {
 		} finally {
 			try {
 				if(rs != null) rs.close();
-				if(pstmt  != null) pstmt.close();
+				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			} catch (Exception e2) {
 			}
